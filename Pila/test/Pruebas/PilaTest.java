@@ -6,7 +6,7 @@ package Pruebas;
  * and open the template in the editor.
  */
 
-import Pila.Pila;
+import EstructuraDeDatos.Pila;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
