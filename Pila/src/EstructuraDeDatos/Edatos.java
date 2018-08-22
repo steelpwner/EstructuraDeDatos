@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author dmolina
  */
-public class PilaZ {
+public class Edatos {
     public static void main(String[] args) throws FileNotFoundException, IOException {
      /*   Pila<String> miPila = new Pila();
         miPila.push("Embappe");
@@ -29,13 +29,30 @@ public class PilaZ {
         System.out.println(miPila.getSize());
         System.out.println(miPila.pull().getValor());
         System.out.println(miPila.getSize());*/
-        BufferedReader br=new BufferedReader(new FileReader("H:/Estructura/Profesor Hernán/Pila/datos.txt"));
+        /*BufferedReader br=new BufferedReader(new FileReader("H:/Estructura/Profesor Hernán/Pila/datos.txt"));
         String cadena= getString("datos.txt");
         System.out.println(cadena);
         if (validarExpresion(cadena))
             System.out.println("La cadena está bien");
         else 
             System.out.println("La cadena tiene error");
+                */
+    Persona p1=new Persona("8129981", "Diego Andrés", "Molina Estren", "3017709393", "dmolina@cuc.edu.co");
+    Persona p2=new Persona("8229181", "Juan Gabriel", "Vasquez Ramos", "3011231233", "jvasquez@cuc.edu.co");
+    Persona p3=new Persona("8329581", "Carlos Daniel", "Montoya Ramos", "3015232334", "cramos@cuc.edu.co");
+    Persona p4=new Persona("8429381", "Cristian Daniel", "Aragon Peñafiel", "305234234", "caragon@cuc.edu.co");
+    Contacto misContactos = new Contacto();
+    misContactos.adicionar(p1);
+    misContactos.adicionar(p2);
+    misContactos.adicionar(p3);
+    misContactos.adicionar(p4);
+    misContactos.display();
+    Persona p99=misContactos.buscar("8129981");
+    if (p99 !=null) {
+        System.out.println("Contacto encontrado y es: "+p99.toString());
+    } else {
+        System.out.println("No se encontró contacto");
+    }
     }
     
     public static String getString (String archivo) {
