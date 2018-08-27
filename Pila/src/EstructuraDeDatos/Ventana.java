@@ -52,6 +52,11 @@ public class Ventana extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EstructuraDeDatos/add-contacts (1).png"))); // NOI18N
         jButton1.setText("Agregar Contacto ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 170, 50));
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 170, -1));
 
@@ -74,6 +79,12 @@ public class Ventana extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+   fmContacto v1= new fmContacto();
+   Escritorio.add(v1);
+   v1.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
