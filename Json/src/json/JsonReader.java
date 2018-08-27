@@ -4,23 +4,34 @@
  * and open the template in the editor.
  */
 package json;
-
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 /**
  *
  * @author dmolina
  */
-import com.google.gson.Gson;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 public class JsonReader {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Gson gson = new Gson();
-        BufferedReader bf = new BufferedReader(new FileReader("ejemplojson.json"));
-        miObjeto json= gson.fromJson(bf, miObjeto.class);
-        
-        System.out.println(json.getClass());
-        System.out.println(json.toString());
+    public static void main(String[] args) throws FileNotFoundException, IOException  {
+        JSONParser parser= new JSONParser();
+        try {
+        Object obj = parser.parse(new FileReader("document.json"));
+                JSONObject objetoJson=(JSONObject)obj;
+                System.out.println(objetoJson);
+                String cedula=(String) objetoJson.get("cedula");
+                
+                System.out.println("La cédula de: "+objetoJson.get("Nombres")+" "+objetoJson.get("Apellidos")+" Es: "+cedula);
+            } catch (ParseException ex) {
+            Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
