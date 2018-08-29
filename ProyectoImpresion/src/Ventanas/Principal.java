@@ -5,11 +5,9 @@
  */
 package Ventanas;
 
-import com.sun.xml.internal.bind.v2.runtime.JAXBContextImpl;
+
 import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.JOptionPane;
-       
+import Metodos.*;
 /**
  *
  * @author dmolina
@@ -21,9 +19,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        
     }
-   Timer t= new Timer();
+   Timer temporizador= new Timer();
+   Cola impresiones= new Cola();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,56 +31,77 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnCargarDatos = new javax.swing.JButton();
+        btnIniciarSimulacion = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblColaImpresion = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 730, 390));
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Iniciar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("SIMULACIÓN DE UNA COLA DE IMPRESIÓN");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/PRODUCCIÓN.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 280, -1));
+
+        btnCargarDatos.setText("Cargar Datos");
+        btnCargarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCargarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel1.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 110, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 90));
+        btnIniciarSimulacion.setText("Iniciar Simulación");
+        btnIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSimulacionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, 130, 30));
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, 70, 30));
+
+        jScrollPane1.setViewportView(tblColaImpresion);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 300, 280));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 510));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     VentanaInterna vi=new VentanaInterna();
-     jDesktopPane1.add(vi);
-     vi.setVisible(true);
-     TimerTask tt= new TimerTask() {
-     int tick=0;
-     @Override
-     public void run() {
-     vi.setVisible(false);
-     vi.dispose();
-     }
-     };
-     t.schedule(tt, 5000);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+      System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
+    impresiones=Metodos.cargarDatos("impresiones.txt");
+    System.out.println(impresiones.getSize());
+    Metodos.colaATabla(impresiones, tblColaImpresion);
+    }//GEN-LAST:event_btnCargarDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,8 +139,13 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton btnCargarDatos;
+    private javax.swing.JButton btnIniciarSimulacion;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblColaImpresion;
     // End of variables declaration//GEN-END:variables
 }
