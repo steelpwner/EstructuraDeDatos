@@ -44,27 +44,27 @@ public class TestMetodos {
 
     @Test
     public void testMetodoCola() {
-    Assert.assertEquals(6,Metodos.cargarDatos("spool.txt").getSize());
-    Cola<String> cola= new Cola();
-    cola.enqueue("testing");
-    Assert.assertEquals(cola.getEnd(), cola.peek());
+        Assert.assertEquals(6, Metodos.cargarDatos("spool.txt").getSize());
+        Cola<String> cola = new Cola();
+        cola.enqueue("testing");
+        Assert.assertEquals(cola.getEnd(), cola.peek());
     }
-    
+
     @Test
     public void testIterator() {
-    Cola<String> cola= new Cola();
-    cola.enqueue("testingiterator");
-    Iterator<String> iterador= cola.iterator();
-    String next=iterador.next();
-    Assert.assertEquals(next, cola.peek().getValor());
+        Cola<String> cola = new Cola();
+        cola.enqueue("testingiterator");
+        Iterator<String> iterador = cola.iterator();
+        String next = iterador.next();
+        Assert.assertEquals(next, cola.peek().getValor());
     }
-    
+
     @Test
     public void testSize() {
-    Cola<String> cola= new Cola();
-    Assert.assertEquals(cola.isEmpty(),cola.getSize()==0);
-    cola.enqueue("testingsize");
-    Assert.assertEquals(cola.isEmpty(),cola.getSize()==0);
+        Cola<String> cola = new Cola();
+        Assert.assertEquals(cola.isEmpty(), cola.getSize() == 0);
+        cola.enqueue("testingsize");
+        Assert.assertEquals(cola.isEmpty(), cola.getSize() == 0);
     }
-    
+
 }

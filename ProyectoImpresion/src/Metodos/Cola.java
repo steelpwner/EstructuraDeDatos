@@ -2,10 +2,8 @@ package Metodos;
 
 import java.util.Iterator;
 
+public class Cola<E> implements Iterable {
 
-
-public class Cola <E> implements Iterable{
-    
     private Nodo top, end;
     private int size;
 
@@ -54,9 +52,9 @@ public class Cola <E> implements Iterable{
     }
 
     public void display() {
-        Iterator<E> iterador= this.iterator();
+        Iterator<E> iterador = this.iterator();
         System.out.println("La Cola de tamaño " + this.getSize() + " es la siguiente:");
-            while (iterador.hasNext()) {
+        while (iterador.hasNext()) {
             E next = iterador.next();
             System.out.println(next);
         }
@@ -64,25 +62,26 @@ public class Cola <E> implements Iterable{
 
     @Override
     public Iterator iterator() {
-     Iterator<E> iterador= new Iterator() {
-     Nodo<E> nodoActual=top;
-         @Override
-         public boolean hasNext() {
-         return nodoActual!=null;
-         }
+        Iterator<E> iterador = new Iterator() {
+            Nodo<E> nodoActual = top;
 
-         @Override
-         public E next() {
-         if (hasNext()) {
-         E dato=nodoActual.getValor();
-         nodoActual=nodoActual.getLink();
-         return dato;
-         } else {
-         throw new NullPointerException("No hay siguiente");
-         }
-         }
-     };
-    return iterador;
+            @Override
+            public boolean hasNext() {
+                return nodoActual != null;
+            }
+
+            @Override
+            public E next() {
+                if (hasNext()) {
+                    E dato = nodoActual.getValor();
+                    nodoActual = nodoActual.getLink();
+                    return dato;
+                } else {
+                    throw new NullPointerException("No hay siguiente");
+                }
+            }
+        };
+        return iterador;
     }
-     
+
 }

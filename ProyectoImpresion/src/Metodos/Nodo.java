@@ -1,16 +1,7 @@
 package Metodos;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author dmolina
- */
 public class Nodo<E> {
+
     private E valor;
     private Nodo link;
 
@@ -19,9 +10,9 @@ public class Nodo<E> {
 
     public Nodo(E valor) {
         this.valor = valor;
-        this.link=null;
+        this.link = null;
     }
-    
+
     public E getValor() {
         return valor;
     }
@@ -37,5 +28,5 @@ public class Nodo<E> {
     public void setLink(Nodo link) {
         this.link = link;
     }
-    
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Metodos;
 
 import Ventanas.Dialogo;
@@ -22,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author dmolina
  */
 public class Metodos {
-   
+
     public static Cola cargarDatos(String ruta) {
         Cola<String> colaNueva = new Cola();
         try {
@@ -39,27 +34,26 @@ public class Metodos {
         }
         return colaNueva;
     }
-    
-    
+
     public static void colaATabla(Cola<String> cola, JTable tabla) {
         DefaultTableModel tm = new DefaultTableModel(cola.getSize(), 1);
         Iterator<String> iterador = cola.iterator();
         int i = 0;
         while (iterador.hasNext()) {
             String next = iterador.next();
-             String nombreArchivo="";
-             int j=0;
-             while (next.charAt(j)!=',') {
-             nombreArchivo+=next.charAt(j);
-             j++;
-             }
+            String nombreArchivo = "";
+            int j = 0;
+            while (next.charAt(j) != ',') {
+                nombreArchivo += next.charAt(j);
+                j++;
+            }
             tm.setValueAt(nombreArchivo, i, 0);
             i++;
         }
         tabla.setModel(tm);
     }
- 
-    public static void iniciarSimulacion (Cola impresiones, Dialogo dialogo) {
+
+    public static void iniciarSimulacion(Cola impresiones, Dialogo dialogo) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -96,8 +90,9 @@ public class Metodos {
             }
         }).start();
     }
+
     public static void main(String[] args) {
-    
-    }   
-    
+
+    }
+
 }

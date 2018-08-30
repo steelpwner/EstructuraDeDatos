@@ -7,9 +7,6 @@ package Ventanas;
 
 
 import Metodos.*;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author dmolina
@@ -96,18 +93,18 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
-    Dialogo dialogo = new Dialogo(this, false);
-    Metodos.iniciarSimulacion(impresiones, dialogo);
+        Dialogo dialogo = new Dialogo(this, false);
+        Metodos.iniciarSimulacion(impresiones, dialogo);
     }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-      System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
-    impresiones=Metodos.cargarDatos("spool.txt");
-    Metodos.colaATabla(impresiones, tblColaImpresion);
-    btnIniciarSimulacion.setEnabled(true);
+        impresiones = Metodos.cargarDatos("spool.txt");
+        Metodos.colaATabla(impresiones, tblColaImpresion);
+        btnIniciarSimulacion.setEnabled(true);
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
     /**
