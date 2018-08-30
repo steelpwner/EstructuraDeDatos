@@ -5,6 +5,8 @@
  */
 package Metodos;
 
+import Ventanas.Dialogo;
+import Ventanas.Principal;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author dmolina
  */
 public class Metodos {
-    
+   
     public static Cola cargarDatos(String ruta) {
         Cola<String> colaNueva = new Cola();
         try {
@@ -45,14 +47,57 @@ public class Metodos {
         int i = 0;
         while (iterador.hasNext()) {
             String next = iterador.next();
-            tm.setValueAt(next, i, 0);
+             String nombreArchivo="";
+             int j=0;
+             while (next.charAt(j)!=',') {
+             nombreArchivo+=next.charAt(j);
+             j++;
+             }
+            tm.setValueAt(nombreArchivo, i, 0);
             i++;
         }
         tabla.setModel(tm);
     }
-    
-    public static void main(String[] args) {
-        System.out.println(cargarDatos("impresiones.txt"));
+ 
+    public static void iniciarSimulacion (Cola impresiones, Dialogo dialogo) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Iterator<String> iterador = impresiones.iterator();
+                while (iterador.hasNext()) {
+                    String next = iterador.next();
+                    String nombreArchivo = "", cadenaTiempo = "";
+                    int i = 0;
+                    while (next.charAt(i) != ',') {
+                        nombreArchivo += next.charAt(i);
+                        i++;
+                    }
+                    i++;
+                    while (i < next.length()) {
+                        cadenaTiempo += next.charAt(i);
+                        i++;
+                    }
+                    long tiempo = Long.parseLong(cadenaTiempo);
+
+                    dialogo.setNombreLabel(nombreArchivo);
+                    dialogo.setVisible(true);
+                    try {
+                        Thread.sleep(tiempo);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    dialogo.dispose();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }).start();
     }
+    public static void main(String[] args) {
+    
+    }   
     
 }

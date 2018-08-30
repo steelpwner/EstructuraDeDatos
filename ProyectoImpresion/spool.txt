@@ -1,0 +1,6 @@
+documento1.docx,6000
+documento2.docx,5000
+documento3.docx,4000
+documento4.docx,3000
+documento5.docx,2000
+documento6.docx,1000

@@ -6,8 +6,10 @@
 package Ventanas;
 
 
-import java.util.Timer;
 import Metodos.*;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author dmolina
@@ -19,9 +21,10 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        btnIniciarSimulacion.setEnabled(false);
     }
-   Timer temporizador= new Timer();
-   Cola impresiones= new Cola();
+  
+   Cola impresiones;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +34,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelVentana = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnCargarDatos = new javax.swing.JButton();
@@ -45,52 +48,56 @@ public class Principal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelVentana.setBackground(new java.awt.Color(255, 255, 255));
+        panelVentana.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("SIMULACIÓN DE UNA COLA DE IMPRESIÓN");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+        panelVentana.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/PRODUCCIÓN.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 280, -1));
+        panelVentana.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 280, -1));
 
+        btnCargarDatos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnCargarDatos.setText("Cargar Datos");
         btnCargarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 110, 30));
+        panelVentana.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 160, 40));
 
+        btnIniciarSimulacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnIniciarSimulacion.setText("Iniciar Simulación");
         btnIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSimulacionActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, 130, 30));
+        panelVentana.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 170, 40));
 
+        btnSalir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, 70, 30));
+        panelVentana.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, 150, 40));
 
         jScrollPane1.setViewportView(tblColaImpresion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 300, 280));
+        panelVentana.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 280));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 510));
+        getContentPane().add(panelVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 510));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
-        // TODO add your handling code here:
+    Dialogo dialogo = new Dialogo(this, false);
+    Metodos.iniciarSimulacion(impresiones, dialogo);
     }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -98,9 +105,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
-    impresiones=Metodos.cargarDatos("impresiones.txt");
-    System.out.println(impresiones.getSize());
+    impresiones=Metodos.cargarDatos("spool.txt");
     Metodos.colaATabla(impresiones, tblColaImpresion);
+    btnIniciarSimulacion.setEnabled(true);
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
     /**
@@ -144,8 +151,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelVentana;
     private javax.swing.JTable tblColaImpresion;
     // End of variables declaration//GEN-END:variables
 }
