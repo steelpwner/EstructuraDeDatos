@@ -78,7 +78,7 @@ public class Metodos {
                     dialogo.setNombreLabel(nombreArchivo);
                     dialogo.setVisible(true);
                     try {
-                        Thread.sleep(tiempo*100);
+                        Thread.sleep(tiempo*1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
