@@ -50,37 +50,40 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("SIMULACIÓN DE UNA COLA DE IMPRESIÓN");
-        panelVentana.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+        panelVentana.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/PRODUCCIÓN.png"))); // NOI18N
         panelVentana.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 280, -1));
 
         btnCargarDatos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnCargarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/upload.png"))); // NOI18N
         btnCargarDatos.setText("Cargar Datos");
         btnCargarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarDatosActionPerformed(evt);
             }
         });
-        panelVentana.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 160, 40));
+        panelVentana.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 200, 50));
 
         btnIniciarSimulacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnIniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/power.png"))); // NOI18N
         btnIniciarSimulacion.setText("Iniciar Simulación");
         btnIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSimulacionActionPerformed(evt);
             }
         });
-        panelVentana.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 170, 40));
+        panelVentana.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 230, 50));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/exit.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        panelVentana.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, 150, 40));
+        panelVentana.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, 160, 50));
 
         jScrollPane1.setViewportView(tblColaImpresion);
 
@@ -94,7 +97,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
         Dialogo dialogo = new Dialogo(this, false);
-        Metodos.iniciarSimulacion(impresiones, dialogo);
+        Metodos.iniciarSimulacion(impresiones, dialogo,tblColaImpresion,btnIniciarSimulacion);
     }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

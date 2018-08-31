@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,7 +38,7 @@ public class Metodos {
     }
 
     public static void colaATabla(Cola<String> cola, JTable tabla) {
-        DefaultTableModel tm = new DefaultTableModel(cola.getSize(), 1);
+        DefaultTableModel modeloTabla = new DefaultTableModel(cola.getSize(), 1);
         Iterator<String> iterador = cola.iterator();
         int i = 0;
         while (iterador.hasNext()) {
@@ -47,13 +49,13 @@ public class Metodos {
                 nombreArchivo += next.charAt(j);
                 j++;
             }
-            tm.setValueAt(nombreArchivo, i, 0);
+            modeloTabla.setValueAt(nombreArchivo, i, 0);
             i++;
         }
-        tabla.setModel(tm);
+        tabla.setModel(modeloTabla);
     }
 
-    public static void iniciarSimulacion(Cola impresiones, Dialogo dialogo) {
+    public static void iniciarSimulacion(Cola impresiones, Dialogo dialogo, JTable tabla, JButton btnIniciarSimulacion) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -76,23 +78,45 @@ public class Metodos {
                     dialogo.setNombreLabel(nombreArchivo);
                     dialogo.setVisible(true);
                     try {
-                        Thread.sleep(tiempo);
+                        Thread.sleep(tiempo*100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     dialogo.dispose();
-                    try {
+                    actualizadorTabla(tabla, impresiones);
+                   try {
                         Thread.sleep(10000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                JOptionPane.showMessageDialog(null, "Impresión completa","Terminado",1);
+                btnIniciarSimulacion.setEnabled(false);
             }
         }).start();
     }
 
+   public static void actualizadorTabla (JTable tabla, Cola<String> impresiones) {
+   DefaultTableModel modeloTabla= new DefaultTableModel(tabla.getRowCount()-1,1);
+   impresiones.dequeue();
+   Iterator<String> iterador= impresiones.iterator();
+    int i=0;
+       while (iterador.hasNext()) {
+           String next = iterador.next();
+            String nombreArchivo = "";
+            int j = 0;
+            while (next.charAt(j) != ',') {
+                nombreArchivo += next.charAt(j);
+                j++;
+            }
+            modeloTabla.setValueAt(nombreArchivo, i, 0);
+            i++;
+       }
+   tabla.setModel(modeloTabla);
+   }
+  
     public static void main(String[] args) {
-
+   
     }
 
 }
