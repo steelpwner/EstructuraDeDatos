@@ -7,6 +7,11 @@ package Ventanas;
 
 
 import Metodos.*;
+import static Metodos.Metodos.actualizadorTabla;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author dmolina
@@ -21,7 +26,7 @@ public class Principal extends javax.swing.JFrame {
         btnIniciarSimulacion.setEnabled(false);
     }
   
-   Cola impresiones;
+   Cola<String> impresiones;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,7 +102,24 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
         Dialogo dialogo = new Dialogo(this, false);
-        Metodos.iniciarSimulacion(impresiones, dialogo,tblColaImpresion,btnIniciarSimulacion);
+        Iterator<String> iterador = impresiones.iterator();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (iterador.hasNext()) {
+                    String next = iterador.next();
+                    Metodos.iniciarSimulacion(next, impresiones, dialogo);
+                    actualizadorTabla(tblColaImpresion, impresiones);
+                     try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+                JOptionPane.showMessageDialog(null, "Impresión terminada", "TERMINADO", 1);
+                btnIniciarSimulacion.setEnabled(false);
+            }
+        }).start();
     }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

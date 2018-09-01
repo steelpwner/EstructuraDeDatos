@@ -5,6 +5,8 @@
  */
 package Ventanas;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Estudiante Redes
@@ -31,7 +33,7 @@ public class Dialogo extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         lblNombreLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblEspera = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -48,9 +50,9 @@ public class Dialogo extends javax.swing.JDialog {
         lblNombreLabel.setText("jLabel2");
         jPanel1.add(lblNombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Espere...");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 130, 60, -1));
+        lblEspera.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblEspera.setText("Espere...");
+        jPanel1.add(lblEspera, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 160, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Imprimiendo");
@@ -108,10 +110,14 @@ public class Dialogo extends javax.swing.JDialog {
         lblNombreLabel.setText(nombreLabel);
     }
 
+    public void setLblEspera(String Espera) {
+        lblEspera.setText(Espera);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblEspera;
     private javax.swing.JLabel lblNombreLabel;
     // End of variables declaration//GEN-END:variables
 }

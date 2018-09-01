@@ -1,17 +1,20 @@
 package Metodos;
 
 import Ventanas.Dialogo;
-import Ventanas.Principal;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -55,47 +58,59 @@ public class Metodos {
         tabla.setModel(modeloTabla);
     }
 
-    public static void iniciarSimulacion(Cola impresiones, Dialogo dialogo, JTable tabla, JButton btnIniciarSimulacion) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Iterator<String> iterador = impresiones.iterator();
-                while (iterador.hasNext()) {
-                    String next = iterador.next();
-                    String nombreArchivo = "", cadenaTiempo = "";
-                    int i = 0;
-                    while (next.charAt(i) != ',') {
-                        nombreArchivo += next.charAt(i);
-                        i++;
-                    }
-                    i++;
-                    while (i < next.length()) {
-                        cadenaTiempo += next.charAt(i);
-                        i++;
-                    }
-                    long tiempo = Long.parseLong(cadenaTiempo);
+    public static void iniciarSimulacion(String next,Cola impresiones, Dialogo dialogo) {
 
-                    dialogo.setNombreLabel(nombreArchivo);
-                    dialogo.setVisible(true);
-                    try {
-                        Thread.sleep(tiempo*1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    dialogo.dispose();
-                    actualizadorTabla(tabla, impresiones);
-                   try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            String nombreArchivo = sacarNombreArchivo(next);
+            dialogo.setNombreLabel(nombreArchivo);
+            Timer temporizador = new Timer(1000, new ActionListener() {
+                long tiempo = sacarSegundosArchivo(next) * 1000;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (tiempo > 0) {
+                        dialogo.setLblEspera("Espere " + tiempo / 1000 + " segundos");
+                        tiempo -= 1000;
+                    } else {
+                        dialogo.setVisible(false);
                     }
                 }
-                JOptionPane.showMessageDialog(null, "Impresión completa","Terminado",1);
-                btnIniciarSimulacion.setEnabled(false);
+            });
+            boolean continuar = true;
+            dialogo.setLblEspera("Espere...");
+            dialogo.setVisible(true);
+            while (continuar) {
+                temporizador.start();
+                if (!dialogo.isVisible()) {
+                    temporizador.stop();
+                    continuar = false;
+                }
             }
-        }).start();
     }
-
+    
+    public static String sacarNombreArchivo(String next) {
+        int i=0;
+        String nombreArchivo = "";
+        while (next.charAt(i) != ',') {
+            nombreArchivo += next.charAt(i);
+            i++;
+        }
+        i++;
+        return nombreArchivo;
+    }
+    
+    public static long sacarSegundosArchivo(String next) {
+        int i=0;
+        while (next.charAt(i) != ',') {
+            i++;
+        }
+        i++;
+        String cadenaTiempo = "";
+        while (i < next.length()) {
+            cadenaTiempo += next.charAt(i);
+            i++;
+        }
+        return Long.parseLong(cadenaTiempo);
+    }
    public static void actualizadorTabla (JTable tabla, Cola<String> impresiones) {
    DefaultTableModel modeloTabla= new DefaultTableModel(tabla.getRowCount()-1,1);
    impresiones.dequeue();
@@ -116,7 +131,7 @@ public class Metodos {
    }
   
     public static void main(String[] args) {
-   
+ 
     }
 
 }
