@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ventanas;
+package edu.cuc.ventanas;
 
 
-import Metodos.*;
-import static Metodos.Metodos.actualizadorTabla;
+import edu.cuc.metodos.Metodos;
+import edu.cuc.metodos.Cola;
+import static edu.cuc.metodos.Metodos.actualizadorTabla;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         btnIniciarSimulacion.setEnabled(false);
+        jScrollPane2.setBorder(null);
     }
   
    Cola<String> impresiones;
@@ -42,8 +44,8 @@ public class Principal extends javax.swing.JFrame {
         btnCargarDatos = new javax.swing.JButton();
         btnIniciarSimulacion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblColaImpresion = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstNombresArchivos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -57,11 +59,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("SIMULACIÓN DE UNA COLA DE IMPRESIÓN");
         panelVentana.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/PRODUCCIÓN.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cuc/ventanas/PRODUCCIÓN.png"))); // NOI18N
         panelVentana.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 280, -1));
 
         btnCargarDatos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnCargarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/upload.png"))); // NOI18N
+        btnCargarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cuc/ventanas/upload.png"))); // NOI18N
         btnCargarDatos.setText("Cargar Datos");
         btnCargarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
         panelVentana.add(btnCargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 200, 50));
 
         btnIniciarSimulacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnIniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/power.png"))); // NOI18N
+        btnIniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cuc/ventanas/power.png"))); // NOI18N
         btnIniciarSimulacion.setText("Iniciar Simulación");
         btnIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
         panelVentana.add(btnIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 230, 50));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/exit.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cuc/ventanas/exit.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,9 +92,10 @@ public class Principal extends javax.swing.JFrame {
         });
         panelVentana.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, 160, 50));
 
-        jScrollPane1.setViewportView(tblColaImpresion);
+        lstNombresArchivos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jScrollPane2.setViewportView(lstNombresArchivos);
 
-        panelVentana.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 280));
+        panelVentana.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 230, 250));
 
         getContentPane().add(panelVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 510));
 
@@ -101,6 +104,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSimulacionActionPerformed
+        btnIniciarSimulacion.setEnabled(false);
         Dialogo dialogo = new Dialogo(this, false);
         Iterator<String> iterador = impresiones.iterator();
         new Thread(new Runnable() {
@@ -109,7 +113,7 @@ public class Principal extends javax.swing.JFrame {
                 while (iterador.hasNext()) {
                     String next = iterador.next();
                     Metodos.iniciarSimulacion(next, impresiones, dialogo);
-                    actualizadorTabla(tblColaImpresion, impresiones);
+                    Metodos.actualizadorLista(lstNombresArchivos, impresiones);
                      try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ex) {
@@ -117,7 +121,6 @@ public class Principal extends javax.swing.JFrame {
                 }
                 }
                 JOptionPane.showMessageDialog(null, "Impresión terminada", "TERMINADO", 1);
-                btnIniciarSimulacion.setEnabled(false);
             }
         }).start();
     }//GEN-LAST:event_btnIniciarSimulacionActionPerformed
@@ -128,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
         impresiones = Metodos.cargarDatos("spool.txt");
-        Metodos.colaATabla(impresiones, tblColaImpresion);
+        Metodos.colaALista(impresiones, lstNombresArchivos);
         btnIniciarSimulacion.setEnabled(true);
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
@@ -173,8 +176,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lstNombresArchivos;
     private javax.swing.JPanel panelVentana;
-    private javax.swing.JTable tblColaImpresion;
     // End of variables declaration//GEN-END:variables
 }

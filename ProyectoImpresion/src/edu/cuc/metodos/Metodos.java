@@ -1,18 +1,17 @@
-package Metodos;
+package edu.cuc.metodos;
 
-import Ventanas.Dialogo;
+import edu.cuc.ventanas.Dialogo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -44,6 +43,7 @@ public class Metodos {
         DefaultTableModel modeloTabla = new DefaultTableModel(cola.getSize(), 1);
         Iterator<String> iterador = cola.iterator();
         int i = 0;
+        String[] header={"Documento"};
         while (iterador.hasNext()) {
             String next = iterador.next();
             String nombreArchivo = "";
@@ -55,9 +55,27 @@ public class Metodos {
             modeloTabla.setValueAt(nombreArchivo, i, 0);
             i++;
         }
+        modeloTabla.setColumnIdentifiers(header);
         tabla.setModel(modeloTabla);
     }
 
+    public static void colaALista(Cola<String> cola, JList lista) {
+    Iterator<String> iterador=cola.iterator();
+    DefaultListModel<String> modeloLista = new DefaultListModel();
+    int i=0;
+        while (iterador.hasNext()) {
+            String next = iterador.next();
+             String nombreArchivo = "";
+            int j = 0;
+            while (next.charAt(j) != ',') {
+                nombreArchivo += next.charAt(j);
+                j++;
+            }
+            modeloLista.addElement(nombreArchivo);
+        }
+        lista.setModel(modeloLista);
+    }
+    
     public static void iniciarSimulacion(String next,Cola impresiones, Dialogo dialogo) {
 
             String nombreArchivo = sacarNombreArchivo(next);
@@ -111,6 +129,7 @@ public class Metodos {
         }
         return Long.parseLong(cadenaTiempo);
     }
+    
    public static void actualizadorTabla (JTable tabla, Cola<String> impresiones) {
    DefaultTableModel modeloTabla= new DefaultTableModel(tabla.getRowCount()-1,1);
    impresiones.dequeue();
@@ -128,6 +147,24 @@ public class Metodos {
             i++;
        }
    tabla.setModel(modeloTabla);
+   }
+   
+   public static void actualizadorLista (JList lista, Cola<String> impresiones) {
+   DefaultListModel modeloLista= new DefaultListModel();
+   impresiones.dequeue();
+   Iterator<String> iterador= impresiones.iterator();
+    int i=0;
+       while (iterador.hasNext()) {
+           String next = iterador.next();
+            String nombreArchivo = "";
+            int j = 0;
+            while (next.charAt(j) != ',') {
+                nombreArchivo += next.charAt(j);
+                j++;
+            }
+            modeloLista.addElement(nombreArchivo);
+       }
+   lista.setModel(modeloLista);
    }
   
     public static void main(String[] args) {

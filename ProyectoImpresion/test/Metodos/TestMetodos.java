@@ -5,13 +5,13 @@
  */
 package Metodos;
 
+import edu.cuc.metodos.Cola;
+import edu.cuc.metodos.Metodos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import Metodos.*;
-import Ventanas.*;
 import java.util.Iterator;
 import org.junit.Assert;
 
